@@ -16,6 +16,7 @@ var (
 		ApiUrl	string
 	}
 	Port int
+	Debug bool
 )
 
 // NewContext => set configuration from env vars or command parameters
@@ -59,6 +60,12 @@ func NewContext() []cli.Flag {
 			Destination: &Port,
 			EnvVar:      "PORT",
 			Usage:       "Exporter port",
+		},
+		cli.BoolFlag{
+			Name:        "debug, d",
+			Destination: &Debug,
+			EnvVar:      "DEBUG",
+			Usage:       "Debug logging",
 		},
 	}
 }

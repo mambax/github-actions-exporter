@@ -13,6 +13,7 @@ If you want to monitor a public repository, you must put the public_repo option 
 | Github Repos | github_repos, grs | GITHUB_REPOS | - | List all repositories you want get informations. Format \<orga>/\<repo>,\<orga>/\<repo2>,\<orga>/\<repo3> (like test/test) |
 | Exporter port | port, p | PORT | 9999 | Exporter port |
 | Github Api URL | github_api_url, url | GITHUB_API_URL | api.github.com | Github API URL (primarily for Github Enterprise usage) |
+| Debug flag | debug, d | DEBUG | false | If true, enables debug logging |
 
 ## Exported stats
 
