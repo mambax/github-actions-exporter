@@ -45,6 +45,13 @@ func runWeb(ctx *cli.Context) {
 	})
 	http.Handle("/metrics", promhttp.Handler())
 	log.Printf("starting exporter with port %v", config.Port)
+	if config.Debug {
+		log.Printf("Debug flag: %t", config.Debug)
+		log.Printf("Token Length: %d", len(config.Github.Token))
+		log.Printf("Api URL: %s", config.Github.ApiUrl)
+		log.Printf("Orgs: %s", config.Github.Organizations)
+		log.Printf("Repos: %s", config.Github.Repositories)
+	}
 	log.Fatal(http.ListenAndServe(":"+strconv.Itoa(config.Port), nil))
 }
 

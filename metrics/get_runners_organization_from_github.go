@@ -37,7 +37,7 @@ func GetRunnersOrganizationFromGithub() {
 			req, _ := http.NewRequest("GET", "https://"+config.Github.ApiUrl+"/orgs/"+orga+"/actions/runners", nil)
 			req.Header.Set("Authorization", "token "+config.Github.Token)
 			if config.Debug {
-				log.Printf("GET https://%s/orgs/%s/actions/runners with token %s", config.Github.ApiUrl, orga, config.Github.Token[0:2])
+				log.Printf("GET https://%s/orgs/%s/actions/runners with token:len %d", config.Github.ApiUrl, orga, len(config.Github.Token))
 			}
 			resp, err := client.Do(req)
 			if err != nil {
@@ -45,6 +45,10 @@ func GetRunnersOrganizationFromGithub() {
 			}
 			if resp.StatusCode != 200 {
 				log.Fatalf("the status code returned by the server is different from 200: %d", resp.StatusCode)
+			} else {
+				if config.Debug {
+					log.Printf("GET https://%s/orgs/%s/actions/runners with status %d", config.Github.ApiUrl, orga, resp.StatusCode)
+				}
 			}
 			err = json.NewDecoder(resp.Body).Decode(&p)
 			if err != nil {

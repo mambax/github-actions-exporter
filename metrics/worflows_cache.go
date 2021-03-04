@@ -31,6 +31,9 @@ func WorkflowsCache() {
 			var p workflowsReturn
 			req, _ := http.NewRequest("GET", "https://"+config.Github.ApiUrl+"/repos/"+repo+"/actions/workflows", nil)
 			req.Header.Set("Authorization", "token "+config.Github.Token)
+			if config.Debug {
+				log.Printf("GET https://%s/repos/%s/actions/workflows with token:len %d", config.Github.ApiUrl, repo, len(config.Github.Token))
+			}
 			resp, err := client.Do(req)
 			defer resp.Body.Close()
 			if err != nil {

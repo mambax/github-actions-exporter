@@ -48,12 +48,19 @@ func GetJobsFromGithub() {
 			var p jobsReturn
 			req, _ := http.NewRequest("GET", "https://"+config.Github.ApiUrl+"/repos/"+repo+"/actions/runs", nil)
 			req.Header.Set("Authorization", "token "+config.Github.Token)
+			if config.Debug {
+				log.Printf("GET https://%s/repos/%s/actions/runs with token:len %d", config.Github.ApiUrl, repo, len(config.Github.Token))
+			}
 			resp, err := client.Do(req)
 			if err != nil {
 				log.Fatal(err)
 			}
 			if resp.StatusCode != 200 {
 				log.Fatalf("the status code returned by the server is different from 200: %d", resp.StatusCode)
+			} else {
+				if config.Debug {
+					log.Printf("GET https://%s/repos/%s/actions/runs with status %d", config.Github.ApiUrl, repo, resp.StatusCode)
+				}
 			}
 			err = json.NewDecoder(resp.Body).Decode(&p)
 			if err != nil {
