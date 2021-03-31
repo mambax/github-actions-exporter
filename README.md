@@ -112,3 +112,35 @@ Es:
 # TYPE github_workflow_usage gauge
 github_workflow_usage_seconds{id="2862037",name="Create Release",node_id="MDg6V29ya2Zsb3cyODYyMDM3",repo="xxx/xxx",state="active",os="UBUNTU"} 706.609
 ```
+
+## Usage 
+
+### Build Docker Image 
+
+To build the code and push to dockerhub. Install docker on your workstation and follow the   
+example with docker hub user john doe and version 1.5.4
+
+```
+docker login -u johndoe -p <dockerhub password>
+docker build -t johndoe/github-actions-exporter:v1.5.4 .
+docker push johndoe/github-actions-exporter:v1.5.4
+```
+
+### Publish Helm Chart 
+
+First set up a helm chart repository. You can do this for free using github pages see [https://medium.com/@mattiaperi/create-a-public-helm-chart-repository-with-github-pages-49b180dbb417](https://medium.com/@mattiaperi/create-a-public-helm-chart-repository-with-github-pages-49b180dbb417)
+
+First install helm on your workstation then follow example for johndoe github account and github repo helm-charts. 
+
+```
+cd deploy/helm-charts
+helm package ./github-actions-exporter 
+cp github-actions-exporter-0.1.2.tgz  /helm-charts
+cd /helm-charts
+helm repo index --url https://johndoe.github.io/helm-charts/ . 
+helm repo add johdoe https://johndoe.github.io/helm-charts
+Helm repo update 
+# test helm chart
+helm install --generate-name john-doe/github-actions-exporter --dry-run --debug
+```  
+

@@ -48,7 +48,7 @@ func GetRunnersFromGithub() {
 				log.Fatal(err)
 			}
 			if resp.StatusCode != 200 {
-				log.Fatalf("the status code returned by the server is different from 200: %d", resp.StatusCode)
+				log.Printf("the status code from /repos/"+repo+"/actions/runners github api call returned by the server is different from 200: %d", resp.StatusCode)
 			}
 			err = json.NewDecoder(resp.Body).Decode(&p)
 			if err != nil {
